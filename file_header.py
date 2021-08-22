@@ -2,19 +2,16 @@ from datetime import datetime
 
 _file_header = ['*']*240
 
-def set_bank_code(bank_code : int) -> None: # G001
-    # 1 to 3	Bank code.	Bank code where the sub issuer has an account opened by Dock
-    # (use zeros to the left to fill in the remaining positions in case of 1 or 2 digits).
+def set_codigo_banco(codigo_banco : int) -> None: # G001
+    # 1 até 3 Código do Banco na Compensação
+    _file_header[0:3] = str(codigo_banco).zfill(3)
 
-    bank_code = str(bank_code).zfill(3)
-    _file_header[0:3] = bank_code
+def set_codigo_lote(codigo_lote='0') -> None: # G002
+    # 4 até  7	código do lote.
+    _file_header[3:7] = str(codigo_lote).zfill(4)
 
-def set_lot_code(lot_code=0) -> None: # G002
-    # 4 to 7	Lot code.	Fill in zeros.
-    _file_header[3:7] = str(lot_code).zfill(4)
-
-def set_register_type(register_type=0) -> None: # G003
-    # 8	Registration type.	Fill in 0.
+def set_tipo_registro(register_type='0') -> None: # G003
+    # 8 até 8 tipo de registro
     _file_header[7:8] = str(register_type)
 
 def set_G004_brancos() -> None: # G004 lol
@@ -121,12 +118,12 @@ def set_observacoes_empresa(obs=''):
 set_G004_brancos()
 
 # Controle
-set_bank_code('77')
-set_lot_code()
-set_register_type()
+set_codigo_banco('77')
+set_codigo_lote()
+set_tipo_registro()
 
 # Empresa
-set_tipo_registro_empresa(2)
+set_tipo_registro_empresa('2')
 set_registro_empresa('44274504000175')
 set_convenio_code()
 set_agencia('987')
@@ -138,10 +135,10 @@ set_nome_empresa('EMPRESA S/A')
 set_nome_banco('BANCO INTER S/A')
 
 # Arquivo
-set_codigo_remessa_retorno(1)
+set_codigo_remessa_retorno('1')
 set_data_geracao_arquivo()
 set_hora_geracao_arquivo()
-set_numero_sequencial_arquivo(1)
+set_numero_sequencial_arquivo('1')
 set_numero_versao()
 set_densidade_gravacao()
 
